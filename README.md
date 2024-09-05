@@ -11,6 +11,11 @@ La limpieza de los datos se centra en hacer que la información sea más legible
 
 Este proyecto es una actividad de clase para los estudiantes de Ironhack. Estamos trabajando en él como parte de nuestro aprendizaje en el curso de Data Analytics.
 
+En este repositorio encontrarás:
+- Archivo de funciones .py
+- Notebook donde se realizó la limpieza
+- Notebook que contiene el EDA
+
 ## Características
 
 - **Limpieza de datos:** La principal funcionalidad es limpiar la base de datos para mejorar su legibilidad.
