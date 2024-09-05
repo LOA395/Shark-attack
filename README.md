@@ -16,6 +16,9 @@ En este repositorio encontrarás:
 - Notebook donde se realizó la limpieza
 - Notebook que contiene el EDA
 
+Además adjuntamos un link a la presentación donde explicamos brevemente aspectos relevantes de este proyecto.
+[Presentación del proyecto](https://www.canva.com/design/DAGPzU5ovGI/4aRaUWVBy5iDDUzQEKKakQ/view?utm_content=DAGPzU5ovGI&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
 ## Características
 
 - **Limpieza de datos:** La principal funcionalidad es limpiar la base de datos para mejorar su legibilidad.
@@ -52,9 +55,4 @@ Este proyecto fue realizado por:
 - Laura Ortiz
 - Cristina Ramírez
 
-## Ejemplos
 
-Incluye aquí tus imágenes o gráficos generados. Puedes hacerlo de la siguiente manera:
-
-```markdown
-![Descripción de la imagen](ruta/a/tu/imagen.png)
