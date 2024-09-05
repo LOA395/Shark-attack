@@ -4,7 +4,7 @@
 ## Descripción
 
 En nuestro proyecto, **Data-cleaning-pandas**, limpiamos una base de datos CSV que contiene información sobre ataques de tiburones. El objetivo es procesar y limpiar estos datos para responder preguntas importantes como:
-- ¿Mueren más hombres o mujeres por ataques de tiburón?
+- ¿Se ven envueltos más frecuentemente en incidentes con tiburones los hombres o las mujeres?
 - ¿En qué países ocurren más ataques?
 
 La limpieza de los datos se centra en hacer que la información sea más legible y comprensible, permitiendo así un análisis eficiente.
