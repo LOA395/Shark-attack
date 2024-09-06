@@ -12,7 +12,7 @@ La limpieza de los datos se centra en hacer que la información sea más legible
 
 Este proyecto es una actividad de clase para los estudiantes de Ironhack. Estamos trabajando en él como parte de nuestro aprendizaje en el curso de Data Analytics.
 
-Los datos utilizados provienen de esta [página web.] (https://www.sharkattackfile.net/incidentlog.htm)
+Los datos utilizados provienen de esta página web. (https://www.sharkattackfile.net/incidentlog.htm)
 
 En este repositorio encontrarás:
 - Archivo de funciones .py para la limpieza de los datos
