@@ -2,6 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+# Configuración global de Seaborn para unificar los colores y estilos de los gráficos
+sns.set(style="whitegrid", palette="deep")
+
 def cargar_datos(filepath):
     """Carga el archivo CSV en un DataFrame y convierte la columna 'Date' a tipo datetime."""
     df = pd.read_csv(filepath)
@@ -16,7 +19,7 @@ def tasa_mortalidad(df):
     porcentaje_no_fallecidos = ((total_incidentes - fallecidos) / total_incidentes) * 100
     labels = ['Fallecidos', 'No Fallecidos']
     sizes = [porcentaje_fallecidos, porcentaje_no_fallecidos]
-    colors = ['#ff9999','#66b3ff']
+    colors = ['#FF6F61', '#6B8E23']  # Colores unificados
     plt.figure(figsize=(8, 8))
     plt.pie(sizes, labels=labels, autopct='%1.1f%%', colors=colors, startangle=140)
     plt.title('Porcentaje de Fallecidos y No Fallecidos')
@@ -26,7 +29,7 @@ def ataques_por_actividad(df):
     df_sin_unknown = df[df['Deceased'].isin(['Y', 'N'])]
     activity_attacks = df_sin_unknown.groupby(['Activity', 'Deceased'], as_index=False).size().rename(columns={'size': 'Number of Attacks'})
     plt.figure(figsize=(12, 8))
-    sns.barplot(data=activity_attacks, y='Activity', x='Number of Attacks', hue='Deceased', palette={'Y': '#FF9300', 'N': '#06B5C7'})
+    sns.barplot(data=activity_attacks, y='Activity', x='Number of Attacks', hue='Deceased', palette={'Y': '#FF6F61', 'N': '#6B8E23'})  # Colores unificados
     plt.title('Número de Ataques por Actividad')
     plt.xlabel('Número de Ataques')
     plt.ylabel('Actividad')
@@ -37,7 +40,7 @@ def tendencia_incidentes_por_decada(df):
     plt.figure(figsize=(10, 6))
     df_decade = df.dropna(subset=['Decade'])
     df_decade['Decade'] = df_decade['Decade'].astype(int)
-    sns.countplot(data=df_decade, x='Decade')
+    sns.countplot(data=df_decade, x='Decade', palette='deep')  # Uso de la paleta global
     plt.title('Número de Incidentes por Década')
     plt.xticks(rotation=45)
 
@@ -45,7 +48,7 @@ def incidentes_por_mes(df):
     """Visualiza el número de incidentes por mes."""
     meses_ordenados = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     df['Month'] = pd.Categorical(df['Month'], categories=meses_ordenados, ordered=True)
-    paleta_colores_azul = sns.color_palette("ch:start=.2,rot=-.3", n_colors=len(df['Month'].unique()))
+    paleta_colores_azul = sns.color_palette("deep", n_colors=len(df['Month'].unique()))  # Paleta unificada
     plt.figure(figsize=(10, 6))
     sns.countplot(data=df, x='Month', palette=paleta_colores_azul)
     plt.title('Número de Incidentes por Mes')
@@ -56,7 +59,7 @@ def incidentes_por_estacion(df):
     df_filtrado = df[df['Season'] != 'Unknown']
     incidentes_por_estacion = df_filtrado['Season'].value_counts()
     plt.figure(figsize=(10, 6))
-    bars = plt.bar(incidentes_por_estacion.index, incidentes_por_estacion, color=['skyblue', 'salmon', 'lightgreen', 'lightcoral'])
+    bars = plt.bar(incidentes_por_estacion.index, incidentes_por_estacion, color=sns.color_palette("deep", len(incidentes_por_estacion)))  # Colores unificados
     for bar in bars:
         yval = bar.get_height()
         porcentaje = (yval / incidentes_por_estacion.sum()) * 100
@@ -71,15 +74,27 @@ def incidentes_por_genero(df):
     incidentes_por_genero = df['Sex'].value_counts()
     porcentaje_por_genero = (incidentes_por_genero / incidentes_por_genero.sum()) * 100
     plt.figure(figsize=(8, 8))
-    plt.pie(incidentes_por_genero, labels=[f'{gen}' for gen, porcentaje in zip(incidentes_por_genero.index, porcentaje_por_genero)], autopct='%1.1f%%', colors=['skyblue', 'salmon', 'green'], startangle=140)
+    plt.pie(incidentes_por_genero, labels=[f'{gen}' for gen, porcentaje in zip(incidentes_por_genero.index, porcentaje_por_genero)], autopct='%1.1f%%', colors=sns.color_palette("deep", len(incidentes_por_genero)), startangle=140)  # Colores unificados
     plt.title('Número de Incidentes por Género')
 
 def incidentes_por_pais(df, top_n=10):
-    """Visualiza el número de incidentes en los principales países."""
-    top_countries = df['standarized_country'].value_counts().head(top_n).index
-    filtered_df = df[df['standarized_country'].isin(top_countries)]
+    """Visualiza el número de incidentes en los principales países, ordenados por frecuencia."""
+    # Obtener los países con más incidentes
+    top_countries = df['standarized_country'].value_counts().head(top_n)
+    ordered_countries = top_countries.index
+    
+    # Filtrar el DataFrame para solo incluir los países principales
+    filtered_df = df[df['standarized_country'].isin(ordered_countries)]
+    
+    # Configurar el tamaño de la figura
     plt.figure(figsize=(12, 8))
-    sns.countplot(data=filtered_df, x='standarized_country', palette=sns.color_palette("Blues", top_n))
+    
+    # Crear el gráfico de barras ordenado
+    sns.countplot(data=filtered_df, x='standarized_country', 
+                  order=ordered_countries, 
+                  palette=sns.color_palette("deep", top_n))  # Colores unificados
+    
+    # Título y rotación de etiquetas
     plt.title(f'Frecuencia de Incidentes en los {top_n} Principales Países')
     plt.xticks(rotation=45)
 
@@ -92,7 +107,7 @@ def incidentes_por_rango_de_edad(df):
     porcentaje_por_edad = (incidentes_por_edad / incidentes_por_edad.sum()) * 100
 
     plt.figure(figsize=(12, 8))
-    bars = sns.barplot(x=incidentes_por_edad.index, y=porcentaje_por_edad, palette='viridis')
+    bars = sns.barplot(x=incidentes_por_edad.index, y=porcentaje_por_edad, palette='deep')  # Paleta unificada
 
     # Añadir los porcentajes sobre las barras
     for bar in bars.patches:
@@ -109,11 +124,11 @@ def incidentes_por_rango_de_edad(df):
     plt.ylabel('Porcentaje de Incidentes')
     plt.title('Porcentaje de Incidentes por Rango de Edad')
     plt.xticks(rotation=45)
-
+    
 def distribucion_edad_por_actividad(df):
     """Visualiza la distribución de edades para diferentes actividades."""
     plt.figure(figsize=(10, 6))
-    sns.boxplot(data=df, x='Activity', y='Age', palette=sns.color_palette("Set2", 8))
+    sns.boxplot(data=df, x='Activity', y='Age', palette=sns.color_palette("deep", 8))  # Paleta unificada
     plt.title('Distribución de Edad por Actividad')
     plt.xlabel('Actividad')
     plt.ylabel('Edad')
@@ -123,12 +138,13 @@ def distribucion_edad_por_actividad(df):
 def densidad_edad_por_actividad(df):
     """Visualiza la densidad de edad para diferentes actividades."""
     plt.figure(figsize=(10, 6))
-    sns.kdeplot(data=df, x='Age', hue='Activity', fill=True, palette=sns.color_palette("Set2", 8))
+    sns.kdeplot(data=df, x='Age', hue='Activity', fill=True, palette=sns.color_palette("deep", 8))  # Paleta unificada
     plt.title('Densidad de Edad por Actividad')
     plt.xlabel('Edad')
     plt.ylabel('Densidad')
     plt.xticks(rotation=45)
     plt.show()
+
 def actividad_por_genero(df):
     """Visualiza la distribución de actividades según el género con un gráfico de barras apiladas."""
     # Filtrar datos para excluir valores UNKNOWN en la columna 'Sex'
@@ -140,8 +156,7 @@ def actividad_por_genero(df):
     actividad_genero = df_filtrado.groupby(['Activity', 'Sex']).size().unstack().fillna(0)
     
     # Crear el gráfico de barras apiladas
-    actividad_genero.plot(kind='bar', stacked=True, colormap='Set3', figsize=(12, 8))
-    
+    actividad_genero.plot(kind='bar', stacked=True, colormap='Set2', figsize=(12, 8))  # Paleta unificada
     plt.title('Distribución de Actividades por Género')
     plt.xlabel('Actividad')
     plt.ylabel('Número de Incidentes')
