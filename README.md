@@ -51,7 +51,7 @@ Este proyecto no tiene una licencia especificada.
 
 Este proyecto fue realizado por:
 - Gabriela Casero
-- [Nombre del segundo autor]
+- Tatiana Juan
 - Laura Ortiz
 - Cristina Ramírez
 
