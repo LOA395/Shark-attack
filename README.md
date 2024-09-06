@@ -6,15 +6,20 @@
 En nuestro proyecto, **Data-cleaning-pandas**, limpiamos una base de datos CSV que contiene información sobre ataques de tiburones. El objetivo es procesar y limpiar estos datos para responder preguntas importantes como:
 - ¿Se ven envueltos más frecuentemente en incidentes con tiburones los hombres o las mujeres?
 - ¿En qué países ocurren más ataques?
+- ¿En qué estación del año son más comunes?
 
 La limpieza de los datos se centra en hacer que la información sea más legible y comprensible, permitiendo así un análisis eficiente.
 
 Este proyecto es una actividad de clase para los estudiantes de Ironhack. Estamos trabajando en él como parte de nuestro aprendizaje en el curso de Data Analytics.
 
+Los datos utilizados provienen de esta [página web.] (https://www.sharkattackfile.net/incidentlog.htm)
+
 En este repositorio encontrarás:
-- Archivo de funciones .py
+- Archivo de funciones .py para la limpieza de los datos
+- Archivo de funciones .py para la realización del EDA
 - Notebook donde se realizó la limpieza
 - Notebook que contiene el EDA
+- Archivo .csv con los datos ya limpios
 
 Además adjuntamos un link a la presentación donde explicamos brevemente aspectos relevantes de este proyecto.
 [Presentación del proyecto](https://www.canva.com/design/DAGPzU5ovGI/4aRaUWVBy5iDDUzQEKKakQ/view?utm_content=DAGPzU5ovGI&utm_campaign=designshare&utm_medium=link&utm_source=editor)
